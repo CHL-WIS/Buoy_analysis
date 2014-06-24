@@ -1,0 +1,24 @@
+% read header file in NDBC
+
+year = '2009'; mon = '07';monc = 'jul';
+
+if isunix
+    cdir = '/mnt/CHL_WIS_1/NDBC/';
+    fname = [cdir,year,'/',monc,'/',year,'_',mon];
+    if exist(fname,'file')
+        fid = fopen(fid);
+        data = textscan(fid,'%s%f%f%f%f%f%f%f%f%f%f%f%f%f');
+    end
+else
+    cdir = 'X:\NDBC\';
+    fname = [cdir,year,'\',monc,'\',year,'_',mon];
+    if exist(fname,'file')
+        aa = load(fname);
+    end
+end
+
+
+
+
+
+

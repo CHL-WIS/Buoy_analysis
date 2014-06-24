@@ -1,0 +1,38 @@
+clear all
+
+%Each lake is given a number
+%0 --- Superior
+%1 --- Michigan
+%2 --- Huron
+%3 --- St. Clair
+%4 --- Erie
+%6 --- Ontario
+
+lake = input('What lake is being processes:  ');
+
+%Load in .onlns 
+files = dir('*.onlns');
+
+
+filename = getfield(files(1,1),'name');
+
+Outf = filename(1:11);
+fullout = [Outf,'.ALL'];
+
+comm = ['type *.onlns > ',fullout];
+
+system(comm)
+
+year = filename(8:11);
+station = filename(2:6);
+
+fid = fopen('fort.5','wt');
+fprintf(fid,'%4s \n',year);
+fprintf(fid,'%5s \n',station);
+fprintf(fid,'%1i \n',lake);
+fclose(fid);
+
+
+buoyconvert = ['C:\Great_lakes\ISH_Processing\src\buoy2ISH_format.exe < fort.5'];
+
+system(buoyconvert)
